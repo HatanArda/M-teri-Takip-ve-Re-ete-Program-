@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.log
+# Müşteri verisi asla repoya girmesin
+*yedek*.json
+*.xlsx
+private/

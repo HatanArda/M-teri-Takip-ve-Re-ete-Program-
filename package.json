@@ -1,0 +1,11 @@
+{
+  "name": "musteri-takip",
+  "version": "1.0.0",
+  "description": "Optik müşteri, reçete (Medula) ve satış takibi",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "start": "python3 -m http.server 8080 --directory docs"
+  }
+}

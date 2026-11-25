@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Müşteri Takip">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#14212b">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<title>Müşteri Takip</title>
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#14212b;--mute:#66767f;--line:#d5dde2;--head:#14212b;--headtx:#fff;--ok:#e7f3ef;--oktx:#0b6b58;--low:#fde3d8;--lowtx:#a8330d;--soft:#f7f9fa;--acc:#0f8f7a;--acctx:#fff;--warn:#fff4d6;--warntx:#8a5a00;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e161c;--card:#16222b;--ink:#e8eff3;--mute:#8da0ab;--line:#2a3a45;--head:#0a1116;--headtx:#e8eff3;--ok:#14352e;--oktx:#6fd6bd;--low:#4a2316;--lowtx:#ff9d78;--soft:#121c23;--acc:#2bb9a1;--acctx:#04231d;--warn:#3a2e10;--warntx:#f5c869;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e161c;--card:#16222b;--ink:#e8eff3;--mute:#8da0ab;--line:#2a3a45;--head:#0a1116;--headtx:#e8eff3;--ok:#14352e;--oktx:#6fd6bd;--low:#4a2316;--lowtx:#ff9d78;--soft:#121c23;--acc:#2bb9a1;--acctx:#04231d;--warn:#3a2e10;--warntx:#f5c869;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,"Avenir Next","Segoe UI",system-ui,sans-serif;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+header{background:var(--head);color:var(--headtx);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:8}
+header h1{margin:0;font-size:19px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header .durum{font-size:12px;opacity:.7;white-space:nowrap}
+main{padding:14px;max-width:1100px;margin:0 auto}
+h2{font-size:20px;margin:4px 0 12px}
+h3{font-size:16px;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+h3 .say{color:var(--mute);font-weight:400;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.hint{color:var(--mute);font-size:14px}
+.btn{border:0;background:var(--acc);color:var(--acctx);border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:14px}
+.btn.del{background:transparent;color:var(--lowtx);border:1px solid var(--line)}
+.btn.big{padding:16px 22px;font-size:18px}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.sp{flex:1}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%;min-width:0}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:-1px}
+input.hata{outline:2px solid var(--lowtx);background:var(--low)}
+input.uyari{background:var(--warn)}
+.ara{position:relative}
+.ara input{padding:13px 14px;font-size:17px;border-radius:12px;background:var(--card)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px 12px}
+.grid label,.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mute)}
+.grid label.genis{grid-column:1/-1}
+.liste .oge{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+.liste .oge:last-child{border-bottom:0}
+.liste .oge:hover{background:var(--soft)}
+.liste .ad{font-weight:700}
+.liste .alt{color:var(--mute);font-size:13px}
+.liste{padding:0;overflow:hidden}
+.rozet{display:inline-block;border-radius:20px;padding:3px 10px;font-size:13px;font-weight:700;white-space:nowrap;background:var(--soft);color:var(--mute);border:1px solid var(--line)}
+.rozet.borc{background:var(--low);color:var(--lowtx);border-color:transparent}
+.rozet.ok{background:var(--ok);color:var(--oktx);border-color:transparent}
+.rozet.bekle{background:var(--warn);color:var(--warntx);border-color:transparent}
+.bilgi{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px 16px;margin-top:8px}
+.bilgi div{font-size:14px}
+.bilgi b{display:block;font-size:12px;color:var(--mute);font-weight:400}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+.rx{width:100%;max-width:560px;margin-top:8px}
+.rx th,.rx td{border:1px solid var(--line);padding:6px 8px;text-align:center;font-size:14px}
+.rx thead th{background:var(--head);color:var(--headtx);font-weight:600;font-size:12px}
+.rx tbody th{text-align:left;background:var(--soft);font-weight:600;white-space:nowrap}
+.kalem{width:100%}
+.kalem td,.kalem th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;font-size:14px}
+.kalem th{color:var(--mute);font-weight:400;font-size:12px}
+.kalem .r{text-align:right;white-space:nowrap}
+.top{margin-top:8px;margin-left:auto;max-width:320px;font-size:14px}
+.top div{display:flex;justify-content:space-between;padding:2px 0}
+.top .net{font-weight:700;border-top:1px solid var(--line);padding-top:5px;margin-top:3px;font-size:15px}
+.top .kalan{font-weight:700;color:var(--lowtx);font-size:16px}
+.top .kalan.sifir{color:var(--oktx)}
+.rxf{width:100%;border-collapse:separate;border-spacing:4px}
+.rxf th{font-size:12px;color:var(--mute);font-weight:600;text-align:left;white-space:nowrap}
+.rxf td{padding:0}
+.pm{display:flex;gap:4px}
+.pm button{flex:none;width:40px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+.pm input{text-align:center}
+.mesafe{font-size:12px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:.5px;padding-top:8px !important}
+.kf td{padding:3px 2px;vertical-align:middle}
+.kf select{min-width:120px}
+.kf .adet{width:64px;text-align:center}
+.kf .fiyat{width:110px;text-align:right}
+.kf .tut{white-space:nowrap;text-align:right;min-width:90px;font-weight:600}
+.x{border:0;background:none;color:var(--mute);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+nav button{flex:1;border:0;background:none;color:var(--mute);padding:10px 0 12px;font:inherit;font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button svg{width:24px;height:24px}
+nav button.on{color:var(--acc);font-weight:700}
+nav button.medula{color:var(--acc)}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-start;justify-content:center;z-index:20;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 12px 40px}
+.sheet.show{display:flex}
+.panel{background:var(--card);width:100%;max-width:760px;border-radius:16px;padding:18px}
+.panel h2{margin:0 0 12px;display:flex;align-items:center}
+.panel h2 .x{margin-left:auto}
+.uyarilar{background:var(--warn);color:var(--warntx);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.basari{background:var(--ok);color:var(--oktx);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.hedef label{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;cursor:pointer;color:var(--ink);font-size:15px}
+.hedef input{width:auto}
+.adim{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.adim b.n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--acctx);display:flex;align-items:center;justify-content:center}
+.kod{font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;min-height:80px;background:var(--soft)}
+.ozet{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.ozet .card{margin:0}
+.ozet b{display:block;font-size:22px}
+.ozet span{color:var(--mute);font-size:13px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:var(--card);color:var(--ink);padding:8px 14px;font:inherit;cursor:pointer}
+.seg button.on{background:var(--acc);color:var(--acctx);font-weight:700}
+.bos{text-align:center;color:var(--mute);padding:30px 10px}
+#toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--head);color:var(--headtx);padding:10px 18px;border-radius:20px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30;max-width:90vw;text-align:center}
+#toast.show{opacity:1}
+a.yerimi{display:inline-block;padding:10px 16px;border:2px dashed var(--acc);border-radius:10px;color:var(--acc);font-weight:700;text-decoration:none}
+#yazdir{display:none}
+@media (max-width:600px){
+  main{padding:10px}.panel{padding:14px}
+  .kf thead{display:none}
+  .kf tr{display:grid;grid-template-columns:1fr 60px 104px 36px;gap:4px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .kf td{padding:0}
+  .kf td:nth-child(2){grid-column:1/-1;order:-1;width:auto !important}
+  .kf td.tut{display:none}
+  .kf .adet,.kf .fiyat{width:100%}
+  .kf select{min-width:0}
+}
+@media print{
+  body{background:#fff;color:#000;padding:0;font-size:12pt}
+  header,nav,main,.sheet,#toast{display:none !important}
+  #yazdir{display:block}
+  #yazdir h1{font-size:18pt;margin:0 0 4pt}
+  #yazdir table{width:100%;border-collapse:collapse;margin:8pt 0}
+  #yazdir th,#yazdir td{border:1px solid #888;padding:4pt 6pt;text-align:center}
+  #yazdir .sol{text-align:left}
+  #yazdir .sag{text-align:right}
+  #yazdir .imza{margin-top:30pt;display:flex;justify-content:space-between}
+}
+</style>
+</head>
+<body>
+<header><h1 id="baslik">Müşteri Takip</h1><span class="durum" id="durum"></span></header>
+<main id="ekran"></main>
+<nav id="nav">
+  <button data-git="liste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M17 4a4 4 0 0 1 0 8M22 21c0-3-1.5-5-4-5.7"/></svg>Müşteriler</button>
+  <button data-git="medula" class="medula"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>Medula'dan al</button>
+  <button data-git="isler"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M8 2v4M16 2v4M8 11h8M8 15h5"/></svg>İşler</button>
+  <button data-git="ayarlar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ayarlar</button>
+</nav>
+<div class="sheet" id="sheet"><div class="panel" id="panel"></div></div>
+<div id="toast"></div>
+<div id="yazdir"></div>
+<input type="file" id="dosya" accept=".json,application/json" hidden>
+<script src="medula.js"></script>
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
