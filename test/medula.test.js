@@ -1,7 +1,7 @@
 // Medula okuyucu testleri. Tüm kişi bilgileri uydurmadır (10000000146 geçerli biçimde örnek bir TC'dir).
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const M = require("../docs/medula.js");
+const M = require("../src/medula.js");
 
 const UST = [
   "HASTA BİLGİLERİ",
@@ -137,6 +137,5 @@ test("yardımcılar", () => {
   assert.equal(M.sayi("−0.75"), -0.75);
   assert.equal(M.sayi("1990000000001"), null);
   assert.equal(M.tarihISO("05.03.2026"), "2026-03-05");
-  assert.match(M.yerImiKodu("https://ornek.github.io/app/"), /^javascript:\(function sayfaTopla/);
-  assert.doesNotMatch(M.yerImiKodu("x"), /\n/);
+  assert.equal(typeof M.metinTopla, "function");
 });

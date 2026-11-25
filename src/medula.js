@@ -279,7 +279,7 @@
       return j;
     }
 
-    if (!atandi) uyarilar.push("Göz değerleri bulunamadı. Medula'daki kutuların içindeki değerler düz kopyalamada gelmez; \"Medula'dan al\" yer işareti düğmesini kullanın ya da değerleri elle girin.");
+    if (!atandi) uyarilar.push("Göz değerleri bulunamadı. Medula'da reçete sayfası tam açıkken deneyin ya da değerleri elle girin.");
 
     var tur = "";
     var gt2 = fold(alan.gozlukTuru || "");
@@ -308,11 +308,11 @@
   }
 
   // ---------------------------------------------------------------
-  // Yer işareti düğmesi (bookmarklet): Medula sayfasında çalışır.
-  // Sayfayı, kutuların içindeki değerler ve seçimlerle birlikte metne çevirir.
-  // Medula'ya hiçbir şey yazmaz; yalnızca okur.
+  // Medula sayfasını metne çevirir (yer işaretinde çalışır).
+  // Kutuların içindeki değerler, +/- seçimleri ve işaret kutuları dahil.
+  // Tablo hücreleri sekme, satırlar yeni satır ile ayrılır. Sayfaya hiçbir şey yazmaz.
   // ---------------------------------------------------------------
-  function sayfaTopla(appUrl) {
+  function metinTopla(doc, win) {
     var satirlar = [], hucreler = [], hucre = "";
     function ekle(t) { t = String(t).replace(/\s+/g, " ").trim(); if (t) hucre += (hucre ? " " : "") + t; }
     function hucreBitir() { hucreler.push(hucre); hucre = ""; }
@@ -331,7 +331,7 @@
         if (c.nodeType !== 1) continue;
         var t = c.tagName;
         if (/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|OPTION|BUTTON)$/.test(t)) continue;
-        if (c.id === "mt-medula-kutu") continue;
+        if (c.id === "mt-kutu") continue;
         if (!gorunur(c, w)) continue;
         if (t === "IFRAME" || t === "FRAME") {
           try { var d = c.contentDocument; if (d && d.body) { satirBitir(); gez(d.body, c.contentWindow); satirBitir(); } } catch (e) {}
@@ -354,47 +354,12 @@
         if (blok) satirBitir();
       }
     }
-    gez(document.body, window);
+    gez(doc.body, win);
     satirBitir();
-    var metin = satirlar.join("\n").slice(0, 30000);
-
-    var eski = document.getElementById("mt-medula-kutu");
-    if (eski) eski.parentNode.removeChild(eski);
-    var k = document.createElement("div");
-    k.id = "mt-medula-kutu";
-    k.style.cssText = "position:fixed;z-index:2147483647;left:50%;top:20px;transform:translateX(-50%);background:#14212b;color:#fff;font:16px/1.4 -apple-system,Segoe UI,sans-serif;padding:16px 18px;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.4);max-width:92vw;text-align:center";
-    var b = "display:inline-block;margin:10px 6px 0;padding:12px 18px;border-radius:10px;border:0;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;";
-    k.innerHTML = "<div style='font-weight:700;margin-bottom:2px'>Reçete okundu</div><div style='opacity:.75;font-size:14px'>Müşteri Takip programına aktarın</div>";
-    var a = document.createElement("a");
-    a.textContent = "Programda aç"; a.target = "_blank"; a.rel = "noopener";
-    a.href = appUrl + "#medula=" + encodeURIComponent(metin);
-    a.style.cssText = b + "background:#0f8f7a;color:#fff";
-    var kb = document.createElement("button");
-    kb.textContent = "Kopyala"; kb.style.cssText = b + "background:#fff;color:#14212b";
-    kb.onclick = function () {
-      function eskiYol() {
-        var ta = document.createElement("textarea"); ta.value = metin; ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
-        document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, metin.length);
-        try { document.execCommand("copy"); } catch (e) {}
-        document.body.removeChild(ta);
-      }
-      var bitti = function () { kb.textContent = "Kopyalandı ✓"; };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(metin).then(bitti, function () { eskiYol(); bitti(); });
-      else { eskiYol(); bitti(); }
-    };
-    var kap = document.createElement("button");
-    kap.textContent = "Kapat"; kap.style.cssText = b + "background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)";
-    kap.onclick = function () { k.parentNode.removeChild(k); };
-    a.onclick = function () { setTimeout(function () { if (k.parentNode) k.parentNode.removeChild(k); }, 500); };
-    k.appendChild(a); k.appendChild(kb); k.appendChild(kap);
-    document.body.appendChild(k);
+    return satirlar.join("\n").slice(0, 30000);
   }
 
-  function yerImiKodu(appUrl) {
-    return "javascript:(" + sayfaTopla.toString().replace(/\n\s*/g, " ") + ")(" + JSON.stringify(appUrl) + ");void 0";
-  }
-
-  var API = { oku: oku, fold: fold, sayi: sayi, tcGecerli: tcGecerli, tarihISO: tarihISO, satirlar: satirlar, sayfaTopla: sayfaTopla, yerImiKodu: yerImiKodu };
+  var API = { oku: oku, fold: fold, sayi: sayi, tcGecerli: tcGecerli, tarihISO: tarihISO, satirlar: satirlar, metinTopla: metinTopla };
   if (typeof module !== "undefined" && module.exports) module.exports = API;
   else root.Medula = API;
 })(typeof self !== "undefined" ? self : this);
