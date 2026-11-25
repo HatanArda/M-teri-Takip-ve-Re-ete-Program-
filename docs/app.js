@@ -263,7 +263,7 @@
     if (hedef) h += "<div class=\"basari\">Reçete <b>" + esc(L.adSoyad(hedef)) + "</b> dosyasına eklenecek.</div>";
     h += "<div class=\"card\">" +
       "<div class=\"adim\"><b class=\"n\">1</b><div>Medula Optik'te hastanın <b>reçete sayfasını</b> açın.</div></div>" +
-      "<div class=\"adim\"><b class=\"n\">2</b><div>Safari'de yer imlerinden <b>“Medula → Müşteri Takip”</b>e dokunun. <span class=\"hint\">(Henüz eklemediyseniz: <a href=\"#\" data-git=\"ayarlar\">Ayarlar → Medula yer imi</a>)</span></div></div>" +
+      "<div class=\"adim\"><b class=\"n\">2</b><div>Safari'de yer işaretlerinden <b>“Medula → Müşteri Takip”</b>e dokunun. <span class=\"hint\">(Henüz eklemediyseniz: <a href=\"#\" data-git=\"ayarlar\">Ayarlar → Medula yer işareti</a>)</span></div></div>" +
       "<div class=\"adim\"><b class=\"n\">3</b><div>" + (anaEkranda()
         ? "Açılan kutuda <b>Kopyala</b>'ya dokunun, sonra buraya dönüp aşağıdaki düğmeye basın."
         : "Açılan kutuda <b>Programda aç</b>'a dokunun. Bilgiler burada kendiliğinden açılır. (Ya da <b>Kopyala</b> deyip aşağıdaki düğmeye basın.)") + "</div></div>" +
@@ -278,7 +278,7 @@
     if (!metin.trim()) { toast("Metin boş"); return; }
     var r = M.oku(metin);
     if (!r.musteri.tc && !r.musteri.ad && !r.gozBulundu && !r.recete.receteNo) {
-      alert("Bu metinde reçete bilgisi bulunamadı.\n\nMedula'da reçete sayfası açıkken yer imine dokunduğunuzdan emin olun.");
+      alert("Bu metinde reçete bilgisi bulunamadı.\n\nMedula'da reçete sayfası açıkken yer işaretine dokunduğunuzdan emin olun.");
       return;
     }
     medulaSonuc = r;
@@ -601,21 +601,21 @@
     var h = "<h2>Ayarlar</h2>";
     h += "<div class=\"card\"><b>Dükkan</b><div class=\"grid\" style=\"margin-top:8px\"><label class=\"genis\">Dükkan adı (fişlerde ve başlıkta görünür)<input id=\"dukkan\" value=\"" + esc(S.ayarlar.dukkan) + "\" placeholder=\"Örn. Yıldız Optik\"></label></div></div>";
 
-    h += "<div class=\"card\" id=\"yerimi\"><b>Medula yer imi (bir kez kurulur)</b>" +
-      (yerel ? "<div class=\"uyarilar\" style=\"margin-top:8px\">Bu sayfa şu an internet adresinden değil, dosyadan açılmış. Yer imi, programın internet adresiyle (https://…) kurulmalı. README'deki “Yayınlama” adımına bakın.</div>" : "") +
-      "<p class=\"hint\">Bu yer imi, Medula'daki reçete sayfasını (kutuların ve +/- seçimlerinin içindekiler dahil) okuyup bu programa getirir. Medula'ya hiçbir şey yazmaz, hiçbir yere göndermez.</p>" +
+    h += "<div class=\"card\" id=\"yerimi\"><b>Medula yer işareti (bir kez kurulur)</b>" +
+      (yerel ? "<div class=\"uyarilar\" style=\"margin-top:8px\">Bu sayfa şu an internet adresinden değil, dosyadan açılmış. Yer işareti, programın internet adresiyle (https://…) kurulmalı. README'deki “Yayınlama” adımına bakın.</div>" : "") +
+      "<p class=\"hint\">Bu yer işareti, Medula'daki reçete sayfasını (kutuların ve +/- seçimlerinin içindekiler dahil) okuyup bu programa getirir. Medula'ya hiçbir şey yazmaz, hiçbir yere göndermez.</p>" +
       "<b>iPad / iPhone (Safari)</b>" +
       "<div class=\"adim\"><b class=\"n\">1</b><div>Aşağıdaki <b>Kodu kopyala</b> düğmesine basın.</div></div>" +
-      "<div class=\"adim\"><b class=\"n\">2</b><div>Safari'de bu sayfadayken adres çubuğundaki <b>Paylaş</b> düğmesine dokunun → <b>Yer İmi Ekle</b>. Adını <b>Medula → Müşteri Takip</b> yapın → <b>Kaydet</b>.</div></div>" +
-      "<div class=\"adim\"><b class=\"n\">3</b><div><b>Yer İmleri</b>ni açın → <b>Düzenle</b> → az önce eklediğiniz yer imine dokunun → adres satırındaki yazıyı tümüyle silin → kopyaladığınız kodu <b>yapıştırın</b> → <b>Bitti</b>.</div></div>" +
-      "<div class=\"adim\"><b class=\"n\">4</b><div>Kullanım: Medula'da reçete sayfası açıkken <b>Yer İmleri → Medula → Müşteri Takip</b>.</div></div>" +
+      "<div class=\"adim\"><b class=\"n\">2</b><div>Safari'de bu sayfadayken <b>Paylaş</b> düğmesine dokunun (yeni iPad'lerde adres çubuğunun yanındaki <b>•••</b> menüsünde) → <b>Yer İşareti Ekle</b>. Adını <b>Medula → Müşteri Takip</b> yapın → <b>Kaydet</b>.</div></div>" +
+      "<div class=\"adim\"><b class=\"n\">3</b><div><b>Yer İşaretleri</b>ni açın → <b>Düzenle</b> → az önce eklediğiniz yer işaretine dokunun → adres satırındaki yazıyı tümüyle silin → kopyaladığınız kodu <b>yapıştırın</b> → <b>Bitti</b>.</div></div>" +
+      "<div class=\"adim\"><b class=\"n\">4</b><div>Kullanım: Medula'da reçete sayfası açıkken <b>Yer İşaretleri → Medula → Müşteri Takip</b>.</div></div>" +
       "<div class=\"row\" style=\"margin:8px 0\"><button class=\"btn\" data-a=\"kodKopyala\">Kodu kopyala</button></div>" +
       "<textarea class=\"kod\" id=\"kod\" readonly>" + esc(kod) + "</textarea>" +
-      "<p style=\"margin-top:12px\"><b>Bilgisayar (Chrome, Edge, Safari)</b><br><span class=\"hint\">Yer imleri çubuğunu açın ve şu düğmeyi sürükleyip çubuğa bırakın:</span></p>" +
+      "<p style=\"margin-top:12px\"><b>Bilgisayar (Chrome, Edge, Safari)</b><br><span class=\"hint\">Yer işaretleri çubuğunu açın ve şu düğmeyi sürükleyip çubuğa bırakın:</span></p>" +
       "<a class=\"yerimi\" draggable=\"true\" href=\"" + esc(kod) + "\" data-a=\"yerimiTik\">Medula → Müşteri Takip</a>" +
       "<p class=\"hint\" style=\"margin-top:12px\">" + (anaEkranda()
-        ? "Not: Programı ana ekrandan açtınız. iPad, ana ekrandaki uygulamaya Safari'den bilgi aktarmaya izin vermez. Bu yüzden yer iminde <b>Kopyala</b>'ya basın, sonra burada <b>Medula'dan al → Kopyalananı yapıştır</b> deyin."
-        : "İpucu: Yer iminde <b>Programda aç</b> derseniz bilgiler Safari'de bu programa kendiliğinden gelir. Programı iPad'in ana ekranına eklediyseniz, o uygulama Safari'den ayrı veri tutar; orada <b>Kopyala</b> → <b>Kopyalananı yapıştır</b> yolunu kullanın.") + "</p></div>";
+        ? "Not: Programı ana ekrandan açtınız. iPad, ana ekrandaki uygulamaya Safari'den bilgi aktarmaya izin vermez. Bu yüzden yer işaretinde <b>Kopyala</b>'ya basın, sonra burada <b>Medula'dan al → Kopyalananı yapıştır</b> deyin."
+        : "İpucu: Yer işaretinde <b>Programda aç</b> derseniz bilgiler Safari'de bu programa kendiliğinden gelir. Programı iPad'in ana ekranına eklediyseniz, o uygulama Safari'den ayrı veri tutar; orada <b>Kopyala</b> → <b>Kopyalananı yapıştır</b> yolunu kullanın.") + "</p></div>";
 
     h += "<div class=\"card\"><b>Veri ve yedek</b><p class=\"hint\">Veriler yalnızca bu cihazda saklanır, internete gönderilmez. Cihaz kaybolursa ya da Safari verileri silinirse kaybolmamaları için düzenli yedek alın (iCloud Drive'a, Dosyalar'a ya da e-postaya).</p>" +
       "<p>" + S.musteriler.length + " müşteri · " + S.receteler.length + " reçete · " + S.satislar.length + " satış<br><span class=\"hint\">Son yedek: " + (S.ayarlar.sonYedek ? L.tarihYaz(S.ayarlar.sonYedek) : "hiç alınmadı") + "</span></p>" +
@@ -778,7 +778,7 @@
       function eski() { t.focus(); t.select(); t.setSelectionRange(0, t.value.length); try { document.execCommand("copy"); } catch (x) {} toast("Kod kopyalandı"); }
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).then(function () { toast("Kod kopyalandı"); }, eski); else eski();
     },
-    yerimiTik: function () { toast("Bu düğmeyi yer imleri çubuğuna sürükleyin"); },
+    yerimiTik: function () { toast("Bu düğmeyi yer işaretleri çubuğuna sürükleyin"); },
     tema: function (e) { lsYaz("mt-tema", e.dataset.t); temaUygula(); ciz(); }
   };
 
@@ -824,7 +824,7 @@
     r.readAsText(f);
   });
 
-  // Yer iminden "Programda aç" ile gelen reçete: adres#medula=...
+  // Yer işaretinden "Programda aç" ile gelen reçete: adres#medula=...
   function adrestenAl() {
     var h = location.hash;
     if (h.indexOf("#medula=") !== 0) return false;

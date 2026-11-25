@@ -1,6 +1,6 @@
 // Programın internetsiz açılması için dosyaları cihazda saklar.
 // Dosyalar güncellenince SURUM değiştirilir; yeni sürüm bir sonraki açılışta gelir.
-const SURUM = "musteritakip-v1";
+const SURUM = "musteritakip-v2";
 const DOSYALAR = ["./", "index.html", "app.js", "logic.js", "medula.js", "manifest.webmanifest",
   "icon-192.png", "icon-512.png", "apple-touch-icon.png", "vendor/xlsx.full.min.js"];
 

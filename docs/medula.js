@@ -1,5 +1,5 @@
 // Medula Optik reçete sayfasından alınan metni okur.
-// Metin, yer imi düğmesiyle (bookmarklet) ya da elle kopyala/yapıştır ile gelir.
+// Metin, yer işareti düğmesiyle (bookmarklet) ya da elle kopyala/yapıştır ile gelir.
 // Tablo hücreleri sekme (\t), tablo satırları yeni satır ile ayrılmıştır.
 (function (root) {
   "use strict";
@@ -279,7 +279,7 @@
       return j;
     }
 
-    if (!atandi) uyarilar.push("Göz değerleri bulunamadı. Medula'daki kutuların içindeki değerler düz kopyalamada gelmez; \"Medula'dan al\" yer imi düğmesini kullanın ya da değerleri elle girin.");
+    if (!atandi) uyarilar.push("Göz değerleri bulunamadı. Medula'daki kutuların içindeki değerler düz kopyalamada gelmez; \"Medula'dan al\" yer işareti düğmesini kullanın ya da değerleri elle girin.");
 
     var tur = "";
     var gt2 = fold(alan.gozlukTuru || "");
@@ -308,7 +308,7 @@
   }
 
   // ---------------------------------------------------------------
-  // Yer imi düğmesi (bookmarklet): Medula sayfasında çalışır.
+  // Yer işareti düğmesi (bookmarklet): Medula sayfasında çalışır.
   // Sayfayı, kutuların içindeki değerler ve seçimlerle birlikte metne çevirir.
   // Medula'ya hiçbir şey yazmaz; yalnızca okur.
   // ---------------------------------------------------------------

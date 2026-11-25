@@ -18,7 +18,7 @@ kaydeder**, satılan ürünleri, fiyatları, ödemeleri ve kalan borcu tutar.
 | **Medula'dan al** | Medula'daki reçeteyi okur, kontrol ettirir, kaydeder. Müşteri TC'den otomatik bulunur. |
 | **Satış** | Çerçeve, cam, lens, güneş gözlüğü… Adet, fiyat, indirim, **SGK/kurum ödemesi**, peşinat, kalan borç, durum (Sipariş verildi → Hazır → Teslim edildi), teslim tarihi. |
 | **İşler** | Teslim bekleyen siparişler, borcu olan müşteriler, bugünkü ve bu ayki tahsilat. |
-| **Ayarlar** | Dükkân adı, Medula yer imi kurulumu, yedek indir / geri yükle, Excel'e aktar, tema. |
+| **Ayarlar** | Dükkân adı, Medula yer işareti kurulumu, yedek indir / geri yükle, Excel'e aktar, tema. |
 
 Ek olarak: reçete ve satış fişi **yazdırma** (AirPrint ya da PDF), reçetede **transpoze**
 (CYL işaretini çevirme), aynı reçetenin iki kez kaydedilmesine karşı uyarı, geçersiz TC uyarısı.
@@ -29,21 +29,21 @@ Ek olarak: reçete ve satış fişi **yazdırma** (AirPrint ya da PDF), reçeted
 
 Medula'daki göz değerleri (2,50 · 85 gibi) ve +/- seçimleri **kutuların içinde** durur.
 "Tümünü seç → Kopyala" yapıldığında Safari bu kutuların içini kopyalamaz. Bu yüzden program,
-bir **yer imi düğmesi** (bookmarklet) kullanır:
+bir **yer işareti düğmesi** (bookmarklet) kullanır:
 
 1. Medula Optik'te hastanın reçete sayfasını açın.
-2. Safari'de **Yer İmleri → Medula → Müşteri Takip**'e dokunun.
+2. Safari'de **Yer İşaretleri → Medula → Müşteri Takip**'e dokunun.
 3. Çıkan kutuda **Programda aç**'a dokunun. Reçete programda açılır, kontrol edip **Kaydet** deyin.
 
-Yer imi Medula'ya **hiçbir şey yazmaz**, hiçbir yere bilgi göndermez. Yalnızca ekranda gördüğünüzü
+Yer işareti Medula'ya **hiçbir şey yazmaz**, hiçbir yere bilgi göndermez. Yalnızca ekranda gördüğünüzü
 okuyup bu programa taşır. Okunanlar: T.C. Kimlik No, Adı, Soyadı, Cinsiyet, Yaş, E-Reçete No,
 Reçete Tarihi, Protokol No, Reçete Teşhis, Tesis Adı, Doktor Adı, Uzak/Yakın Gözlük ve Sağ/Sol cam
 (+/-, Sferik, Silindirik, Aks). Kaydetmeden önce her şeyi düzeltebilirsiniz.
 
 > **Ana ekrana eklediyseniz:** iPad, ana ekrandaki uygulamaya Safari'den bilgi aktarmaya izin vermez
-> (ikisi ayrı veri tutar). O zaman yer iminde **Kopyala**'ya basın, programda
+> (ikisi ayrı veri tutar). O zaman yer işaretinde **Kopyala**'ya basın, programda
 > **Medula'dan al → Kopyalananı yapıştır** deyin. En kısa yol: programı Safari'de açık bir sekmede
-> kullanmak (Sık Kullanılanlar'a ekleyin).
+> kullanmak (yer işaretlerine ekleyin).
 
 ---
 
@@ -58,19 +58,19 @@ Yayınlanan yalnızca programın kendisidir; **müşteri verileri yayınlanmaz**
 2. **Source:** "Deploy from a branch". **Branch:** programın bulunduğu dal (ör. `main`), klasör **`/docs`** → **Save**.
 3. 1-2 dakika sonra sayfanın üstünde adres çıkar:
    `https://KULLANICIADINIZ.github.io/M-teri-Takip-ve-Re-ete-Program-/`
-4. Bu adresi iPad'de Safari'de açın ve **Sık Kullanılanlar**'a ekleyin.
+4. Bu adresi iPad'de Safari'de açın. **Paylaş** (yeni iPad'lerde **•••** menüsünde) → **Yer İşareti Ekle** → Konum: **Sık Kullanılanlar** → **Kaydet**.
 
 > Repo **özel (private)** ise GitHub Pages ücretsiz planda çalışmaz. O zaman repoyu herkese açık
 > yapabilirsiniz (içinde müşteri verisi yoktur, yalnızca program kodu vardır) ya da ücretli plan gerekir.
 
-### 3B. Medula yer imini ekleme (iPad, Safari)
+### 3B. Medula yer işaretini ekleme (iPad, Safari)
 
-1. Programda **Ayarlar → Medula yer imi → Kodu kopyala**.
-2. Safari'de **Paylaş → Yer İmi Ekle**. Adını **Medula → Müşteri Takip** yapın → **Kaydet**.
-3. **Yer İmleri → Düzenle** → bu yer imine dokunun → adres satırını tümüyle silin →
+1. Programda **Ayarlar → Medula yer işareti → Kodu kopyala**.
+2. Safari'de **Paylaş → Yer İşareti Ekle**. Adını **Medula → Müşteri Takip** yapın → **Kaydet**.
+3. **Yer İşaretleri → Düzenle** → bu yer işaretine dokunun → adres satırını tümüyle silin →
    kopyaladığınız kodu **yapıştırın** → **Bitti**.
 
-Bilgisayarda: yer imleri çubuğunu açın ve Ayarlar'daki **"Medula → Müşteri Takip"** düğmesini
+Bilgisayarda: yer işaretleri çubuğunu açın ve Ayarlar'daki **"Medula → Müşteri Takip"** düğmesini
 sürükleyip çubuğa bırakın.
 
 ---
@@ -98,7 +98,7 @@ sürükleyip çubuğa bırakın.
 | `docs/index.html` | Ekran tasarımı |
 | `docs/app.js` | Ekranlar, kayıt, yedek, yazdırma |
 | `docs/logic.js` | Veri yapısı ve hesaplar (toplam, kalan borç, arama, transpoze) |
-| `docs/medula.js` | Medula sayfasını okuyan bölüm ve yer imi kodu |
+| `docs/medula.js` | Medula sayfasını okuyan bölüm ve yer işareti kodu |
 | `docs/sw.js` | İnternetsiz çalışma |
 | `docs/vendor/` | Excel aracı (SheetJS, Apache 2.0 lisansı) |
 | `test/` | Otomatik testler |
